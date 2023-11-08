@@ -1,0 +1,52 @@
+package abc;
+import java.sql.*;
+
+
+public class jdbc {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/om","om1","root");
+			Statement s=c.createStatement();
+			PreparedStatement ps=null;
+					ResultSet r=s.executeQuery("Select * from student");
+					
+					String str1 = "insert into student values(2,'jay')";
+					ps=c.prepareStatement(str1);
+					ps.execute();
+					
+					String str2 = "delete from student where roll=3";
+					ps=c.prepareStatement(str2);
+					ps.execute();
+					
+					
+					String str3 = "update student set name='om3' where roll=1";
+					ps=c.prepareStatement(str3);
+					ps.execute();
+					
+					
+					
+			while(r.next())
+			{
+				int Roll = r.getInt("roll");
+				String str =r.getString("name");
+				System.out.print(Roll+" "+str );
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		catch(Exception e){}
+		
+	}
+
+}
+

@@ -1,0 +1,14 @@
+create view view_name as select * from student;
+
+create view view_name as select roll,name from student;
+
+update view_name set marks= where rollno=;
+
+drop view view_name;
+
+####Joins
+
+inner joint
+select ename,job,emp.deptno,dept.dname from emp inner join second tablename on emp.deptno=secondname.deptno;
+
+select * from stud1 left outer join stud2 on stud1.roll=stud2.roll;

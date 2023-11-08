@@ -1,0 +1,219 @@
+mongosh
+Current Mongosh Log ID: 6548eb68e6fc7c2241754166
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.2
+Using MongoDB:          7.0.2
+Using Mongosh:          2.0.2
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2023-11-06T18:50:37.655+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show databases
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> use om
+switched to db om
+om> db.createCollection("student")
+{ ok: 1 }
+om> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+om       8.00 KiB
+om> show collections
+student
+om> db.student.insert({rollno:1,name:"om chaudhari"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6548ebf1e6fc7c2241754167") }
+}
+om> db.student.find()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'om chaudhari'
+  }
+]
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'om chaudhari'
+  }
+]
+om> db.student.updateone({rollno:1},{$set:{name:"tanvi chaudhari"}})
+TypeError: db.student.updateone is not a function
+om> db.student.updateOne({rollno:1},{$set:{name:"tanvi chaudhari"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari'
+  }
+]
+om> db.student.insert({rollno:1,name:"om chaudhari",city:"a"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6548ecbbe6fc7c2241754168") }
+}
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari'
+  },
+  {
+    _id: ObjectId("6548ecbbe6fc7c2241754168"),
+    rollno: 1,
+    name: 'om chaudhari',
+    city: 'a'
+  }
+]
+om> db.student.updateOne({name:"om chaudhari"},{$set:{rollno:2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari'
+  },
+  {
+    _id: ObjectId("6548ecbbe6fc7c2241754168"),
+    rollno: 2,
+    name: 'om chaudhari',
+    city: 'a'
+  }
+]
+om> db.student.updateOne({name:"tanvi chaudhari"},{$set:{city:"b"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari',
+    city: 'b'
+  },
+  {
+    _id: ObjectId("6548ecbbe6fc7c2241754168"),
+    rollno: 2,
+    name: 'om chaudhari',
+    city: 'a'
+  }
+]
+om> db.student.delete({name:"om chaudhari"})
+TypeError: db.student.delete is not a function
+om> db.student.deleteOne({name:"om chaudhari"})
+{ acknowledged: true, deletedCount: 1 }
+om> db.student.find().pretty()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari',
+    city: 'b'
+  }
+]
+om> db.student.insertMany({rollno:2,name:"om chaudhari",city:"b"},{rollno:3,name:"jay pawar",city:"c"},{rollno:4,name:"krina shah",city:"d"})
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+om> db.student.insertMany([{rollno:2,name:"om chaudhari",city:"b"},{rollno:3,name:"jay pawar",city:"c"},{rollno:4,name:"krina shah",city:"d"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6548ef14e6fc7c2241754169"),
+    '1': ObjectId("6548ef14e6fc7c224175416a"),
+    '2': ObjectId("6548ef14e6fc7c224175416b")
+  }
+}
+om> db.student.find()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari',
+    city: 'b'
+  },
+  {
+    _id: ObjectId("6548ef14e6fc7c2241754169"),
+    rollno: 2,
+    name: 'om chaudhari',
+    city: 'b'
+  },
+  {
+    _id: ObjectId("6548ef14e6fc7c224175416a"),
+    rollno: 3,
+    name: 'jay pawar',
+    city: 'c'
+  },
+  {
+    _id: ObjectId("6548ef14e6fc7c224175416b"),
+    rollno: 4,
+    name: 'krina shah',
+    city: 'd'
+  }
+]
+om> db.student.deleteMany([{rollno:2},{rollno:4}])
+MongoServerError: BSON field 'delete.deletes.q' is the wrong type 'array', expected type 'object'
+om> db.student.deleteMany([{rollno:2,rollno:4}])
+MongoServerError: BSON field 'delete.deletes.q' is the wrong type 'array', expected type 'object'
+om> db.student.deleteMany({rollno:2},{rollno:4})
+{ acknowledged: true, deletedCount: 1 }
+om> db.student.find()
+[
+  {
+    _id: ObjectId("6548ebf1e6fc7c2241754167"),
+    rollno: 1,
+    name: 'tanvi chaudhari',
+    city: 'b'
+  },
+  {
+    _id: ObjectId("6548ef14e6fc7c224175416a"),
+    rollno: 3,
+    name: 'jay pawar',
+    city: 'c'
+  },
+  {
+    _id: ObjectId("6548ef14e6fc7c224175416b"),
+    rollno: 4,
+    name: 'krina shah',
+    city: 'd'
+  }
+]
+om> db.student.deleteMany([{rollno:1},{rollno:4}])
+MongoServerError: BSON field 'delete.deletes.q' is the wrong type 'array', expected type 'object'
+om> db.student.deleteMany({})
+{ acknowledged: true, deletedCount: 3 }
+om> db.student.find()

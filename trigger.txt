@@ -1,0 +1,9 @@
+delimiter $
+CREATE TRIGGER tr1
+BEFORE UPDATE ON library
+FOR EACH ROW
+BEGIN
+    INSERT INTO n_lib (bno, days) VALUES (NEW.bno,NEW.days,OLD.days);
+END;
+$
+delimiter ;
